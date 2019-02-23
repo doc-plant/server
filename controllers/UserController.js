@@ -33,7 +33,8 @@ module.exports = {
             })
             res.status(200).json({ 
               token: token,
-              email: user.email
+              email: user.email,
+              _id: user._id
             })
           } else {
             res.status(400).json({
