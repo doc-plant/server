@@ -8,8 +8,8 @@ const HistorySchema = new Schema({
   image: {
     type: String
   },
-  content: {
-    type: String
+  labelId: {
+    type: Schema.Types.ObjectId, ref: 'Label'
   },
   createdAt: {
     type: Date
