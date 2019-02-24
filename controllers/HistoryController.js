@@ -8,38 +8,30 @@ const FormData = require('form-data');
 module.exports = {
   addHistory: async function (req, res) {
     try {
-      // let newHistory = {...req.body};
-      // newHistory.userId = req.currentUser._id;
+      let newHistory = {...req.body};
       let formData = new FormData()
-      formData.append('url', 'https://firebasestorage.googleapis.com/v0/b/docplant-f7bfd.appspot.com/o/images%2F1550931449247?alt=media&token=f3db86bc-e64c-4b70-be3c-906a2e515b72')
+      formData.append('url', req.body.image)
       const { data } = await axios({
         method: 'POST',
         url: 'http://35.186.151.40/predict',
         data: formData,
         headers: formData.getHeaders()
       })
-      console.log(data)
       const dataLabel = await Label.findOne( {rawLabel: data.result} )
+      
+      newHistory.labelId = dataLabel._id;
+      newHistory.userId = req.currentUser._id;
+      const history = await History.create(newHistory)
+      res.status(201).json(history)
     } catch (error) {
-      console.log(error)
+      res.status(500).json(error)
     }
-    // console.log(dataLabel)
-    // newHistory.createdAt = new Date();
-    // History
-    //   .create(newHistory)
-    //   .then(history => {
-    //     res.status(201).json(history)
-    //   })
-    //   .catch(err => {
-    //     res.status(500).json({
-    //       message: err.message
-    //     })
-    //   })
   },
   getHistory: function (req, res) {
     History
       .find({ userId: req.currentUser._id })
       .populate('userId')
+      .populate('labelId')
       .sort('-createdAt')
       .then(histories => {
         res.status(200).json(histories)
@@ -57,6 +49,20 @@ module.exports = {
         res.status(200).json({
           message: 'History deleted!'
         })
+      })
+      .catch(err => {
+        res.status(500).json({
+          message: err.message
+        })
+      })
+  },
+  findOne: function (req, res) {
+    History
+      .findOne({ _id: req.params.id })
+      .populate('userId')
+      .populate('labelId')
+      .then(history => {
+        res.status(200).json(history)
       })
       .catch(err => {
         res.status(500).json({

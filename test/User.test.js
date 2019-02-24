@@ -3,6 +3,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { clearDBUser } = require('../helpers/index.test');
 const { expect } = require('chai');
+const User = require('../models/User');
 
 chai.use(chaiHttp);
 
@@ -11,6 +12,7 @@ after(function (done) {
 })
 
 let token = '';
+let email = ''
 
 describe('TESTING FOR USER', function () {
   describe('POST /users User register', function () {
@@ -29,6 +31,7 @@ describe('TESTING FOR USER', function () {
           expect(res.body).to.be.an('object')
           expect(res.body).to.have.property('email')
           expect(res.body).to.have.property('password')
+          email = res.body.email
           done()
         })
     })
@@ -239,6 +242,22 @@ describe('TESTING FOR USER', function () {
           expect(res.body).to.have.property('email')
           done()
         })
+    })
+    it('should return', function(done) {
+      User.findOneAndDelete({ email })
+          .then(() => {
+            chai
+              .request(app)
+              .get('/users')
+              .set('token', token)
+              .end(function (err, res) {
+                expect(err).to.be.null
+                done()
+              })
+          })
+          .catch(err => {
+            console.log(err)
+          })
     })
   })
 })

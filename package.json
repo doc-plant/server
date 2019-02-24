@@ -13,10 +13,11 @@
     "express": "^4.16.4",
     "form-data": "^2.3.3",
     "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.4.14"
+    "mongoose": "^5.4.14",
+    "nyc": "^13.3.0"
   },
   "scripts": {
-    "dev": "nodemon App.js",
-    "test": "NODE_ENV=test mocha --exit"
+    "dev": "NODE_ENV=development nodemon App.js",
+    "test": "NODE_ENV=test nyc mocha --exit"
   }
 }
