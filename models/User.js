@@ -12,7 +12,7 @@ const validatePassword = [
 
 
 const UserSchema = new Schema({
-  name: {
+  fullname: {
     type: String
   },
   avatar: {

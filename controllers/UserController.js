@@ -34,6 +34,8 @@ module.exports = {
             res.status(200).json({ 
               token: token,
               email: user.email,
+              avatar: user.avatar,
+              fullname: user.fullname,
               _id: user._id
             })
           } else {
