@@ -82,6 +82,19 @@ describe('TEST FOR RECOMMENDATION', function () {
           done()
         })
     })
+    it('should return internal server error with status code 500', function (done) {
+      let error = 'error bos'
+      chai
+      .request(app)
+      .post('/recommendations/5c725dd198bba63bf39f')
+      .set('token', token)
+      .send(error)
+      .end(function(err, res) {
+        expect(err).to.be.null
+        expect(res).to.have.status(500)
+        done()
+      })
+    })
   })
   describe('/GET/recommendations/DiseaseID, get all recommendations', function () {
     it('should return a new recommendations with status code 201', function (done) {
@@ -96,6 +109,17 @@ describe('TEST FOR RECOMMENDATION', function () {
           done()
         })
     })
+    // it('should return a new recommendations with status code 201', function (done) {
+    //   chai
+    //     .request(app)
+    //     .get('/recommendations/5c725dd198bba61bf39f')
+    //     .set('token', token)
+    //     .end(function(err, res) {
+    //       expect(err).to.be.null
+    //       expect(res).to.have.status(500)
+    //       done()
+    //     })
+    // })
   })
   describe('/GET/recommendations, get all recommendations history', function () {
     it('should return a new recommendations with status code 201', function (done) {

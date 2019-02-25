@@ -60,10 +60,10 @@ describe('TESTING FOR HISTORY', function () {
   })
   describe('/POST/histories, Add new history', function () {
     it('should return a new history with status code 201', function (done) {
+      this.timeout(5000)
       let newHistory = {
         userId: id,
-        image: 'https://firebasestorage.googleapis.com/v0/b/docplant-f7bfd.appspot.com/o/images%2F1550931449247?alt=media&token=f3db86bc-e64c-4b70-be3c-906a2e515b72',
-        labelId: '5c7259a7fadb5e124f67d8fb',
+        image: 'https://firebasestorage.googleapis.com/v0/b/docplant-f7bfd.appspot.com/o/images%2F1551067808576?alt=media&token=6c810cea-0f9f-4126-98bb-3ffad664895c',
         createdAt: new Date()
       }
       chai  
@@ -72,6 +72,7 @@ describe('TESTING FOR HISTORY', function () {
         .set('token', token)
         .send(newHistory)
         .end(function (err, res) {
+          // console.log(res.body)
           expect(err).to.be.null
           expect(res).to.have.status(201)
           expect(res.body).to.be.an('object')

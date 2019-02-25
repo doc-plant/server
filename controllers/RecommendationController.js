@@ -34,11 +34,11 @@ module.exports = {
       .then(recommendations => {
         res.status(200).json(recommendations)
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   },
   findHistoryRecommend: function (req, res) {
     Recommendation
@@ -49,11 +49,11 @@ module.exports = {
       .then(recommendations => {
         res.status(200).json(recommendations)
       })
-      .catch(err => {
-        res.status({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status({
+      //     message: err.message
+      //   })
+      // })
   },
   deleteRecommend: function (req, res) {
     Recommendation
@@ -63,10 +63,10 @@ module.exports = {
           message: 'Successfully delete recommendation'
         })
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   }
 }

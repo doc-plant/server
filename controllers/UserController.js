@@ -15,19 +15,19 @@ module.exports = {
           res.status(400).json(err.email.message)
         } else if (err.hasOwnProperty('password')) {
           res.status(400).json(err.password.message)
-        } else {
-          res.status(500).json({
-            message: err.message
-          })
-        }
+        } 
+        // else {
+        //   res.status(500).json({
+        //     message: err.message
+        //   })
+        // }
       })
   },
   login: function (req, res) {
     User
       .findOne({ email: req.body.email })
       .then(user => {
-        if (user) {
-          if (comparePassword(req.body.password, user.password)) {
+          if ( user && comparePassword(req.body.password, user.password)) {
             let token = generateToken({
               email: user.email
             })
@@ -40,35 +40,24 @@ module.exports = {
             res.status(400).json({
               message: 'Wrong Email/Password'
             })
-          }
-        } else {
-          res.status(400).json({
-            message: 'Wrong Email/Password'
-          })
-        }
+        } 
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   },
   checkLogin: function (req, res) {
     User
       .findOne({ _id: req.currentUser._id })
       .then(user => {
-        if (user) {
           res.status(200).json(user)
-        } else {
-          res.status(400).json({
-            message: 'Please login first'
-          })
-        }
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   }
 }
