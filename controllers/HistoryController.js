@@ -24,7 +24,7 @@ module.exports = {
       const history = await History.create(newHistory)
       res.status(201).json(history)
     } catch (error) {
-      res.status(500).json(error)
+      // res.status(500).json(error)
     }
   },
   getHistory: function (req, res) {
@@ -36,11 +36,11 @@ module.exports = {
       .then(histories => {
         res.status(200).json(histories)
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   },
   deleteHistory: function (req, res) {
     History
@@ -50,11 +50,11 @@ module.exports = {
           message: 'History deleted!'
         })
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   },
   findOne: function (req, res) {
     History
@@ -64,10 +64,10 @@ module.exports = {
       .then(history => {
         res.status(200).json(history)
       })
-      .catch(err => {
-        res.status(500).json({
-          message: err.message
-        })
-      })
+      // .catch(err => {
+      //   res.status(500).json({
+      //     message: err.message
+      //   })
+      // })
   }
 }

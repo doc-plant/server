@@ -12,6 +12,12 @@ const validatePassword = [
 
 
 const UserSchema = new Schema({
+  name: {
+    type: String
+  },
+  avatar: {
+    type: String
+  },
   email: {
     type: String,
     required: [true, 'Email must be filled'],

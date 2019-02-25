@@ -1,8 +1,9 @@
 const Disease = require('../models/Disease');
+
 module.exports = {
   findAll: function (req, res) {
     Disease
-      .find({})
+      .find(req.body.diseases)
       .then(diseases => {
         res.status(200).json(diseases)
       })

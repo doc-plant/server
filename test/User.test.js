@@ -186,6 +186,17 @@ describe('TESTING FOR USER', function () {
           done()
         })
     })
+    it('should return internal server error with status code 500', function(done) {
+      let newUser = 'asdsad'
+      chai
+        .request(app)
+        .post('/users')
+        .send(newUser)
+        .end(function(err, res) {
+          console.log(res.body)
+          done()
+        })
+    })
   })
   describe('POST /users/login User login', function () {
     it('should return a new object with status code 200', function (done) {
@@ -226,8 +237,19 @@ describe('TESTING FOR USER', function () {
           expect(res.body.message).to.equal('Wrong Email/Password')
           done()
         })
-
     })
+    // it('should return a custom error message when email/password wrong with status code 400', function (done) {
+    //   let userLogin = 'asasdsa' 
+    //   chai
+    //     .request(app)
+    //     .post('/users/login')
+    //     .send(userLogin)
+    //     .end(function(err, res) {
+    //       expect(err).to.be.null
+    //       expect(res).to.have.status(500)
+    //       done()
+    //     })
+    // })
   })
   describe('GET /users check Login User', function () {
     it('should return a new object with status code 200', function (done) {
@@ -242,22 +264,6 @@ describe('TESTING FOR USER', function () {
           expect(res.body).to.have.property('email')
           done()
         })
-    })
-    it('should return', function(done) {
-      User.findOneAndDelete({ email })
-          .then(() => {
-            chai
-              .request(app)
-              .get('/users')
-              .set('token', token)
-              .end(function (err, res) {
-                expect(err).to.be.null
-                done()
-              })
-          })
-          .catch(err => {
-            console.log(err)
-          })
     })
   })
 })

@@ -22,11 +22,11 @@ module.exports = {
               })
             }
           })
-          .catch(err => {
-            res.status(400).json({
-              message: 'Unauthorized user'
-            })
-          })
+          // .catch(err => {
+          //   res.status(400).json({
+          //     message: 'Unauthorized user'
+          //   })
+          // })
       }
     }
   }
