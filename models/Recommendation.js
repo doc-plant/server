@@ -11,6 +11,9 @@ const RecommendSchema = new Schema({
   content: {
     type: String
   },
+  imageUrl: {
+    type: String
+  },
   article: {
     type: String
   },

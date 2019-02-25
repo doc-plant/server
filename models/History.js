@@ -10,10 +10,9 @@ const HistorySchema = new Schema({
   },
   labelId: {
     type: Schema.Types.ObjectId, ref: 'Label'
-  },
-  createdAt: {
-    type: Date
   }
+}, {
+  timestamps: true
 });
 
 const History = mongoose.model('History', HistorySchema);

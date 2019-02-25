@@ -1,12 +1,12 @@
 const History = require('../models/History');
 const Label = require('../models/Label');
-const Disease = require('../models/Disease');
+const Recommendations = require('../models/Recommendation');
 const axios = require('axios');
 const FormData = require('form-data');
 
 
-module.exports = {
-  addHistory: async function (req, res) {
+class HistoryController {
+  static async addHistory (req, res) {
     try {
       let newHistory = {...req.body};
       let formData = new FormData()
@@ -21,16 +21,17 @@ module.exports = {
       
       newHistory.labelId = dataLabel._id;
       newHistory.userId = req.currentUser._id;
-      const history = await History.create(newHistory)
-      res.status(201).json(history)
+      const history = await History.create(newHistory);
+      req.params.id = history._id
+      HistoryController.findOne(req, res)
+      // res.status(201).json(history)
     } catch (error) {
       // res.status(500).json(error)
     }
-  },
-  getHistory: function (req, res) {
+  }
+  static getHistory (req, res) {
     History
       .find({ userId: req.currentUser._id })
-      .populate('userId')
       .populate('labelId')
       .sort('-createdAt')
       .then(histories => {
@@ -41,8 +42,8 @@ module.exports = {
       //     message: err.message
       //   })
       // })
-  },
-  deleteHistory: function (req, res) {
+  }
+  static deleteHistory (req, res) {
     History
       .findOneAndDelete({ _id: req.params.id })
       .then(() => {
@@ -55,15 +56,18 @@ module.exports = {
       //     message: err.message
       //   })
       // })
-  },
-  findOne: function (req, res) {
-    History
+  }
+  static async findOne (req, res) {
+    const history = await History
       .findOne({ _id: req.params.id })
       .populate('userId')
-      .populate('labelId')
-      .then(history => {
-        res.status(200).json(history)
-      })
+      .populate({path: 'labelId', populate: {path: 'diseaseId'}})
+    const recommend = await Recommendations
+                              .find({
+                                diseaseId: history.labelId.diseaseId
+                              })
+                              .populate('userId')
+    res.status(200).json({history, recommend})
       // .catch(err => {
       //   res.status(500).json({
       //     message: err.message
@@ -71,3 +75,4 @@ module.exports = {
       // })
   }
 }
+module.exports = HistoryController

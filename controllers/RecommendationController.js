@@ -11,6 +11,7 @@ module.exports = {
           diseaseId: disease._id,
           content: req.body.content,
           article: req.body.article,
+          imageUrl: req.body.imageUrl,
           createdAt: new Date()
         }
         return Recommendation

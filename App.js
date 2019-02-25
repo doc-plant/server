@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
+const logger = require('morgan');
 // const seed = require('./seed/seed');
 const NODE_ENV = process.env.NODE_ENV
 const app = express();
@@ -13,6 +14,8 @@ const recommendRouter = require('./routes/recommendations');
 
 mongoose.connect(`mongodb://localhost/doc-plant-${NODE_ENV}`, { useNewUrlParser: true });
 
+app.use(cors());
+app.use(logger('short'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
