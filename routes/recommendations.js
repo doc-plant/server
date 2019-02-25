@@ -9,4 +9,8 @@ router.post('/:id', RecommendController.addRecommendation);
 
 router.get('/:id', RecommendController.findAll);
 
+router.get('/', RecommendController.findHistoryRecommend);
+
+router.delete('/:recommendId', RecommendController.deleteRecommend);
+
 module.exports = router

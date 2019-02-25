@@ -11,5 +11,7 @@ router.post('/', HistoryController.addHistory);
 
 router.delete('/:id', HistoryController.deleteHistory);
 
+router.get('/:id', HistoryController.findOne);
+
 module.exports = router;
 
