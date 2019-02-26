@@ -61,5 +61,23 @@ module.exports = {
       //     message: err.message
       //   })
       // })
-  }
+  },
+  googleLogin: async function (req, res) {
+    let newUser = {...req.body};
+    newUser.password = 'Sembarang12@'
+    let user = await User.findOne({email: req.body.email})
+    if (!user) {
+      user = await User.create(newUser)
+    }
+    let token = generateToken({
+      email: user.email
+    })
+    res.status(200).json({ 
+      token: token,
+      email: user.email,
+      avatar: user.avatar,
+      fullname: user.fullname,
+      _id: user._id
+    })
+}
 }

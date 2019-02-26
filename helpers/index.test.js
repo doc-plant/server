@@ -12,6 +12,7 @@ module.exports = {
         })
         .catch(err => {
           console.log(err)
+          done()
         })
     }
   },
@@ -24,6 +25,7 @@ module.exports = {
         })
         .catch(err => {
           console.log(err)
+          done()
         })
     }
   },
@@ -36,6 +38,7 @@ module.exports = {
         })
         .catch(err => {
           console.log(err)
+          done()
         })
     }
   }
