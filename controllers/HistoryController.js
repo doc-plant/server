@@ -8,17 +8,18 @@ const FormData = require('form-data');
 class HistoryController {
   static async addHistory (req, res) {
     try {
+      console.log('masokkkkkkkkkkk')
       let newHistory = {...req.body};
       let formData = new FormData()
       formData.append('url', req.body.image)
-      const { data } = await axios({
-        method: 'POST',
-        url: 'http://35.186.151.40/predict',
-        data: formData,
+      console.log(formData, 'nii form dataaa')
+      const { data } = await axios.post('http://35.186.151.40/predict', formData, {
         headers: formData.getHeaders()
       })
+
+      console.log(data, 'ini daataaaa')
       if (data.result == 'background') {
-        res.status(400).json({
+        res.status(200).json({
           message: 'Error Image'
         })
       } else {
