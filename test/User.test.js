@@ -266,4 +266,19 @@ describe('TESTING FOR USER', function () {
         })
     })
   })
+  describe('GET /users check Login User', function () {
+    it('should return a new object with status code 200', function (done) {
+      chai
+        .request(app)
+        .get('/users')
+        .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMUBtYWlsLmNvbSIsImlhdCI6MTU1MTE1Nzc0OX0.CSonklegD5YvFevvx2X52xVcLbmLJHiKI4FILHGo2A8')
+        .end(function (err, res) {
+          console.log(res)
+          // expect(err).to.be.null
+          // expect(res).to.have.status(400)
+          // console.log(res.body)
+          done()
+        })
+    })
+  })
 })
