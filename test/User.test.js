@@ -274,12 +274,46 @@ describe('TESTING FOR USER', function () {
         .get('/users')
         .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxMUBtYWlsLmNvbSIsImlhdCI6MTU1MTE1Nzc0OX0.CSonklegD5YvFevvx2X52xVcLbmLJHiKI4FILHGo2A8')
         .end(function (err, res) {
-          console.log(res)
-          // expect(err).to.be.null
+          expect(err).to.be.null
           // expect(res).to.have.status(400)
           // console.log(res.body)
           done()
         })
+    })
+  })
+  describe('POST /users/google', function () {
+    it('should return a new object with status code 200', function(done) {
+      let newUser = {
+        email: 'muhammadkhevin@gmail.com',
+        password: 'Sembarang12@'
+      }
+      chai
+      .request(app)
+      .post('/users/google')
+      .send(newUser)
+      .end(function(err, res) {
+        expect(err).to.be.null
+        expect(res).to.have.status(200)
+        expect(res.body).to.be.an('object')
+        done()
+      })
+    })
+    it('should return a new object with status code 200', function(done) {
+      let newUser = {
+        email: 'muhammadkhevin@gmail.com',
+        password: 'Sembarang12@'
+      }
+      chai
+      .request(app)
+      .post('/users/google')
+      .send(newUser)
+      .end(function(err, res) {
+        expect(err).to.be.null
+        expect(res).to.have.status(200)
+        expect(res.body).to.be.an('object')
+        expect(res.body).to.have.property('token')
+        done()
+      })
     })
   })
 })

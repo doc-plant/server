@@ -67,8 +67,10 @@ module.exports = {
     newUser.password = 'Sembarang12@'
     let user = await User.findOne({email: req.body.email})
     if (!user) {
+      console.log('masuk')
       user = await User.create(newUser)
     }
+
     let token = generateToken({
       email: user.email
     })

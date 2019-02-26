@@ -73,13 +73,34 @@ describe('TESTING FOR HISTORY', function () {
         .set('token', token)
         .send(newHistory)
         .end(function (err, res) {
-          console.log(res.body)
           expect(err).to.be.null
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
           expect(res.body).to.have.property('history')
           expect(res.body).to.have.property('recommend')
           historyId = res.body.history._id
+          done()
+        })
+    })
+    it('should return an error message with status code 400', function (done) {
+      this.timeout(10000)
+      let newHistory = {
+        userId: id,
+        image: 'https://firebasestorage.googleapis.com/v0/b/docplant-f7bfd.appspot.com/o/images%2F1551158760202?alt=media&token=6e0194cd-ba0e-450c-8d04-0db408572c17',
+        createdAt: new Date()
+      }
+      chai  
+        .request(app)
+        .post('/histories')
+        .set('token', token)
+        .send(newHistory)
+        .end(function (err, res) {
+          expect(err).to.be.null
+          expect(res).to.have.status(400)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message')
+          expect(res.body.message).to.equal('Error Image')
+          // historyId = res.body.history._id
           done()
         })
     })
@@ -124,7 +145,6 @@ describe('TESTING FOR HISTORY', function () {
         .delete(`/histories/${historyId}`)
         .set('token', token)
         .end(function (err, res) {
-         
           expect(err).to.be.null
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
