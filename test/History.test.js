@@ -12,6 +12,7 @@ before(function(done) {
 })
 
 after(function (done) {
+  // this.timeout(10000)
   clearDBHistory(done)
 })
 

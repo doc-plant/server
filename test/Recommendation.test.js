@@ -100,7 +100,7 @@ describe('TEST FOR RECOMMENDATION', function () {
     it('should return a new recommendations with status code 201', function (done) {
       chai
         .request(app)
-        .get('/recommendations/5c725dd198bba613de3bf39f')
+        .get('/recommendations/5c7246c86bad62641dd48d6c')
         .set('token', token)
         .end(function(err, res) {
           expect(err).to.be.null

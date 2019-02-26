@@ -8,6 +8,7 @@ const User = require('../models/User');
 chai.use(chaiHttp);
 
 after(function (done) {
+  this.timeout(10000)
   clearDBUser(done)
 })
 

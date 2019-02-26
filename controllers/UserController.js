@@ -61,5 +61,20 @@ module.exports = {
       //     message: err.message
       //   })
       // })
+  },
+  googleLogin: async function (req, res) {
+    let newUser = {...req.body};
+    let user = await User.findOne({email: req.body.email})
+    if (!user) {
+      user = await User.create(newUser)
+    }
+    let token = generateToken({
+      email: user.email
+    })
+    res.status(201).json({ 
+      token: token,
+      email: user.email,
+      _id: user._id
+    })
   }
 }
