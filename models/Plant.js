@@ -8,7 +8,10 @@ const PlantSchema = new Schema({
   image: {
     type: String
   },
-  diseases: []
+  diseases: [{
+    type: 'ObjectId',
+    ref: 'Disease'
+  }]
 })
 
 const Plant = mongoose.model('Plant', PlantSchema);
