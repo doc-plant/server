@@ -11,9 +11,9 @@ before(function(done) {
   clearDBUser(done)
 })
 
-after(function(done) {
-  clearDBRecommend(done)
-})
+// after(function(done) {
+//   clearDBRecommend(done)
+// })
 
 let token = ''
 let id = ''
@@ -67,7 +67,7 @@ describe('TEST FOR RECOMMENDATION', function () {
       }
       chai
         .request(app)
-        .post('/recommendations/5c725dd198bba613de3bf39f')
+        .post('/recommendations/5c74bf8f95fded0c47500451')
         .set('token', token)
         .send(newRecommend)
         .end(function(err, res) {

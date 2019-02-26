@@ -21,7 +21,7 @@ let historyId = ''
 
 describe('TESTING FOR HISTORY', function () {
   
-  it('should return a new user with status code 201', function (done) {
+  it('should return a new user with status code 200', function (done) {
     let newUser = {
       email: 'khevin1222@mail.com',
       password: '1sS@ss',
@@ -60,7 +60,7 @@ describe('TESTING FOR HISTORY', function () {
   })
   describe('/POST/histories, Add new history', function () {
     it('should return a new history with status code 201', function (done) {
-      this.timeout(5000)
+      this.timeout(10000)
       let newHistory = {
         userId: id,
         image: 'https://firebasestorage.googleapis.com/v0/b/docplant-f7bfd.appspot.com/o/images%2F1551067808576?alt=media&token=6c810cea-0f9f-4126-98bb-3ffad664895c',
@@ -72,14 +72,13 @@ describe('TESTING FOR HISTORY', function () {
         .set('token', token)
         .send(newHistory)
         .end(function (err, res) {
-          // console.log(res.body)
+          console.log(res.body)
           expect(err).to.be.null
-          expect(res).to.have.status(201)
+          expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('image')
-          expect(res.body).to.have.property('labelId')
-          expect(res.body).to.have.property('userId')
-          historyId = res.body._id
+          expect(res.body).to.have.property('history')
+          expect(res.body).to.have.property('recommend')
+          historyId = res.body.history._id
           done()
         })
     })
@@ -111,9 +110,8 @@ describe('TESTING FOR HISTORY', function () {
           expect(err).to.be.null
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('image')
-          expect(res.body).to.have.property('labelId')
-          expect(res.body).to.have.property('userId')
+          expect(res.body).to.have.property('history')
+          expect(res.body).to.have.property('recommend')
           done()
         })
     })
@@ -125,6 +123,7 @@ describe('TESTING FOR HISTORY', function () {
         .delete(`/histories/${historyId}`)
         .set('token', token)
         .end(function (err, res) {
+         
           expect(err).to.be.null
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')

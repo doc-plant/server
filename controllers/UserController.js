@@ -13,7 +13,7 @@ module.exports = {
         err = err.errors
         if (err.hasOwnProperty('email')) {
           res.status(400).json(err.email.message)
-        } else if (err.hasOwnProperty('password')) {
+        } else {
           res.status(400).json(err.password.message)
         } 
         // else {

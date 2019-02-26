@@ -4,9 +4,9 @@ const { verifyToken } = require('../helpers');
 module.exports = {
   isLogin: function (req, res, next) {
     let token = req.headers.token;
-    if (token) {
+    
       let decoded = verifyToken(token);
-      if (decoded) {
+      
         User
           .findOne({ email: decoded.email })
           .then(user => {
@@ -27,7 +27,5 @@ module.exports = {
           //     message: 'Unauthorized user'
           //   })
           // })
-      }
-    }
   }
 }

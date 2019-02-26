@@ -5,6 +5,9 @@ const DiseaseSchema = new Schema({
   name: {
     type: String
   },
+  description: {
+    type: String
+  },
   image: {
     type: String
   }
