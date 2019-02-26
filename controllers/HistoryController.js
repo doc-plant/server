@@ -17,13 +17,18 @@ class HistoryController {
         data: formData,
         headers: formData.getHeaders()
       })
-      const dataLabel = await Label.findOne( {rawLabel: data.result} )
-      
-      newHistory.labelId = dataLabel._id;
-      newHistory.userId = req.currentUser._id;
-      const history = await History.create(newHistory);
-      req.params.id = history._id
-      HistoryController.findOne(req, res)
+      if (data.result == 'background') {
+        res.status(400).json({
+          message: 'Error Image'
+        })
+      } else {
+        const dataLabel = await Label.findOne( {rawLabel: data.result} )
+        newHistory.labelId = dataLabel._id;
+        newHistory.userId = req.currentUser._id;
+        const history = await History.create(newHistory);
+        req.params.id = history._id
+        HistoryController.findOne(req, res)
+      }
       // res.status(201).json(history)
     } catch (error) {
       // res.status(500).json(error)
