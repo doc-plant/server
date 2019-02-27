@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const axios = require('axios')
-const url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=AIzaSyDh7TyLGgaXZ5ZvOG4GCFgVfj01SL7znaU&q="
+const url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=[KEY YOUTUBE]="
 
 module.exports = {
     generateToken: function (user) {
