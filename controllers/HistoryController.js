@@ -2,23 +2,18 @@ const History = require('../models/History');
 const Label = require('../models/Label');
 const Recommendations = require('../models/Recommendation');
 const axios = require('axios');
-const FormData = require('form-data');
+const qs = require('querystring')
 const { youtubeVideos } = require('../helpers')
 
 
 class HistoryController {
   static async addHistory (req, res) {
     try {
-      console.log('masokkkkkkkkkkk')
       let newHistory = {...req.body};
-      let formData = new FormData()
-      formData.append('url', req.body.image)
-      console.log(formData, 'nii form dataaa')
-      const { data } = await axios.post('http://35.186.151.40/predict', formData, {
-        headers: formData.getHeaders()
-      })
-
-      console.log(data, 'ini daataaaa')
+      const url = req.body.image;
+      const { data } = await axios.post('http://35.186.151.40/predict',
+        qs.stringify({url: url})
+      )
       if (data.result == 'background') {
         res.status(200).json({
           message: 'Error Image'
@@ -74,9 +69,8 @@ class HistoryController {
                                 diseaseId: history.labelId.diseaseId
                               })
                               .populate('userId')
-    const youtube = youtubeVideos(history.labelId.diseaseId.name)
-    console.log(youtube);
-    res.status(200).json({history, recommend})
+    const youtube = await youtubeVideos(history.labelId.diseaseId.name)
+    res.status(200).json({history, recommend, youtube: youtube.slice(0, 5)})
       // .catch(err => {
       //   res.status(500).json({
       //     message: err.message

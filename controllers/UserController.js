@@ -63,12 +63,10 @@ module.exports = {
       // })
   },
   googleLogin: async function (req, res) {
-    console.log(req.body)
     let newUser = {...req.body};
     newUser.password = 'Sembarang12@'
     let user = await User.findOne({email: req.body.email})
     if (!user) {
-      console.log('masuk')
       user = await User.create(newUser)
     }
 

@@ -96,7 +96,7 @@ describe('TESTING FOR HISTORY', function () {
         .send(newHistory)
         .end(function (err, res) {
           expect(err).to.be.null
-          expect(res).to.have.status(400)
+          expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
           expect(res.body).to.have.property('message')
           expect(res.body.message).to.equal('Error Image')

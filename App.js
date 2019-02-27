@@ -14,6 +14,7 @@ const recommendRouter = require('./routes/recommendations');
 const plantRouter = require('./routes/plants');
 
 mongoose.connect(`mongodb://localhost/doc-plant-${NODE_ENV}`, { useNewUrlParser: true });
+// mongoose.connect(`mongodb://docplant:docplant12@ds343985.mlab.com:43985/docplant`, { useNewUrlParser: true });
 
 app.use(cors());
 app.use(logger('short'));
