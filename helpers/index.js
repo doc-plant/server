@@ -1,14 +1,25 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const axios = require('axios')
+const url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=AIzaSyDh7TyLGgaXZ5ZvOG4GCFgVfj01SL7znaU&q="
 
 module.exports = {
-    generateToken: function(user) {
+    generateToken: function (user) {
         return jwt.sign(user, process.env.JWT_SECRET)
     },
-    comparePassword: function(input, currentPassword) {
+    comparePassword: function (input, currentPassword) {
         return bcrypt.compareSync(input, currentPassword)
     },
-    verifyToken: function(token) {
+    verifyToken: function (token) {
         return jwt.verify(token, process.env.JWT_SECRET)
+    },
+    youtubeVideos: async function (search) {
+        try {
+            const { data } = await axios.get(url+search)
+            const videos = data.items.map(v => v.id)
+            return videos
+        } catch ({response}) {
+            return response
+        }
     }
 }
