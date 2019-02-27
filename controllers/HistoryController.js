@@ -3,6 +3,7 @@ const Label = require('../models/Label');
 const Recommendations = require('../models/Recommendation');
 const axios = require('axios');
 const FormData = require('form-data');
+const { youtubeVideos } = require('../helpers')
 
 
 class HistoryController {
@@ -73,6 +74,8 @@ class HistoryController {
                                 diseaseId: history.labelId.diseaseId
                               })
                               .populate('userId')
+    const youtube = youtubeVideos(history.labelId.diseaseId.name)
+    console.log(youtube);
     res.status(200).json({history, recommend})
       // .catch(err => {
       //   res.status(500).json({
