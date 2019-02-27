@@ -18,17 +18,4 @@ describe('TESTING FOR DISEASE', function () {
         done()
       })
   })
-  it('should return internal server error with status code 500', function (done) {
-    let error = {
-      diseases: 'error'
-    }
-    chai
-      .request(app)
-      .get('/diseases')
-      .send(error)
-      .end(function(err, res) {
-        console.log(res.body)
-        done()
-      })
-  })
 })

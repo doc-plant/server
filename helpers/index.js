@@ -16,10 +16,10 @@ module.exports = {
     youtubeVideos: async function (search) {
         try {
             const { data } = await axios.get(url+search)
-            const videos = data.items.map(v => v.id)
+            const videos = data.items.map(v => ({id: v.id, title: v.snippet.title}))
             return videos
         } catch ({response}) {
-            return response
+            // return response
         }
     }
 }

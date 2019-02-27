@@ -194,7 +194,6 @@ describe('TESTING FOR USER', function () {
         .post('/users')
         .send(newUser)
         .end(function(err, res) {
-          console.log(res.body)
           done()
         })
     })

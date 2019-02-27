@@ -1,5 +1,6 @@
 const Recommendation = require('../models/Recommendation');
 const Disease = require('../models/Disease');
+const { youtubeVideos } = require('../helpers/index');
 
 module.exports = {
   addRecommendation: function (req, res) {
@@ -26,20 +27,18 @@ module.exports = {
         })
       })
   },
-  findAll: function(req, res) {
-    Recommendation
+  findAll: async function(req, res) {
+    const recommendation = await Recommendation
       .find({ diseaseId: req.params.id })
       .populate('userId')
       .populate('diseaseId')
       .sort('-createdAt')
-      .then(recommendations => {
-        res.status(200).json(recommendations)
-      })
-      // .catch(err => {
-      //   res.status(500).json({
-      //     message: err.message
-      //   })
-      // })
+    let youtube = []
+    if (recommendation[0]) {
+      youtube = await youtubeVideos(recommendation[0].diseaseId.name)
+    } 
+    res.status(200).json({ recommendation, youtube: youtube.slice(0, 5)})
+  
   },
   findHistoryRecommend: function (req, res) {
     Recommendation
